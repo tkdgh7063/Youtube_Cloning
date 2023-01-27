@@ -7,7 +7,7 @@
     "url": "git+https://github.com/tkdgh7063/Youtube_Cloning.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node index.js"
+    "dev": "nodemon --exec babel-node src/server.js"
   },
   "author": "tkdgh7063",
   "license": "MIT",
