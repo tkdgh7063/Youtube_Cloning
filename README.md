@@ -1,0 +1,26 @@
+# Youtube Clone Plan
+
+## URLs
+
+- / -> Home
+
+  - /join -> Join
+  - /login -> Login
+  - /search -> Search
+
+- /users -> User
+
+  - /users/:id -> See User
+  - /users/logout -> Log Out
+  - /users/edit -> Edit My Profile
+  - /users/delete -> Delete My Profile
+
+- /videos -> Video
+  - /videos/:id -> Watch Video
+  - /videos/:id/edit -> Edit Video
+  - /videos/:id/delete -> Delete Video
+  - /videos/upload -> Upload Video
+
+## 23/02/01 - Express branch merged.
+
+Express branch includes routers, templates using express, pug
