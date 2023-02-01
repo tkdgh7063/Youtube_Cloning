@@ -1,5 +1,11 @@
 extends base
 
+block nav
+  nav
+    ul
+      li
+        a(href="/") Home
+
 block content
   h3 #{video.views} #{video.views === 1 ? "view" : "views"}
   h4 #{video.comments} comments
