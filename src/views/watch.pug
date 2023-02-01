@@ -1,4 +1,16 @@
 extends base
 
+block nav
+  nav
+    ul
+      li
+        a(href="/") Home
+
 block content
-  h1 Watch Videos
+  div
+    p=video.description
+    small=video.createdAt
+    h4=video.hashtags
+  a(href=`${video.id}/edit`) Edit Video &rarr;
+  br
+  a(href=`${video.id}/delete`) Delete Video &rarr;
