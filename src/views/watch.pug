@@ -7,6 +7,7 @@ block nav
         a(href="/") Home
 
 block content
-  h3 #{video.views} #{video.views === 1 ? "view" : "views"}
-  h4 #{video.comments} comments
+  div
+    p=video.description
+    small=video.createAt
   a(href=`${video.id}/edit`) Edit Video &rarr;
