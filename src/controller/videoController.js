@@ -25,10 +25,24 @@ export const postEdit = (req, res) => {
 export const getUpload = (req, res) => {
   return res.render("upload", { pageTitle: "Upload Video" });
 };
-export const postUpload = (req, res) => {
-  // here we will add a video to the videos array.
-  const { title } = req.body;
-  return res.redirect("/");
+export const postUpload = async (req, res) => {
+  const { title, description, hashtags } = req.body;
+  try {
+    await Video.create({
+      title,
+      description,
+      hashtags: hashtags
+        .split(",")
+        .map((word) => word.trim())
+        .map((word) => (word.startsWith("#") ? word : `#${word}`)),
+    });
+    return res.redirect("/");
+  } catch (error) {
+    return res.render("upload", {
+      pageTitle: "Upload Video",
+      errorMessage: error._message,
+    });
+  }
 };
 export const search = (req, res) => res.send("Search");
 export const deleteVideo = (req, res) => {

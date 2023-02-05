@@ -1,6 +1,10 @@
 extends base
 
 block content
+  if errorMessage
+    span=errorMessage
   form(method="POST")
     input(placeholder="Title", required, type="text", name="title")
+    input(placeholder="Description", type="text", name="description")
+    input(placeholder="Hashtags, separated by comma.", type="text", name="hashtags")
     input(type="submit", value="Upload Video")
