@@ -9,5 +9,6 @@ block nav
 block content
   div
     p=video.description
-    small=video.createAt
+    small=video.createdAt
+    h4=video.hashtags
   a(href=`${video.id}/edit`) Edit Video &rarr;
