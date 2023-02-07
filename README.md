@@ -24,3 +24,7 @@
 ## 23/02/01 - Express branch merged.
 
 Express branch includes routers, templates using express, pug
+
+## 23/02/07 - Video-Database branch merged.
+
+Video-Database branch includes videoController functions using mongoose
