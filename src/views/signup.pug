@@ -1,0 +1,22 @@
+extends base
+
+block nav
+  nav
+    ul
+      li
+        a(href="/") Home
+
+block content
+  form(method="POST")
+    h2 Sign Up
+    input(placeholder="Email", type="email", name="email",required)
+    input(placeholder="Username", type="text", name="username",required, maxlength="16", style="width:195px;")
+    input(placeholder="Password", type="password", name="password",required, minlength="8")
+    input(placeholder="Confirm Password", type="password", name="password2",required, minlength="8")
+    input(placeholder="Name", type="text", name="name",required, maxlength="20", style="width:195px;")
+    input(placeholder="Location", type="text", name="location", style="width:195px;")
+    div
+      h4(style="display:inline") Already a member?  
+      a(href="/login") Log In
+    input(type="submit", value="Sign Up")
+    include partials/error-message

@@ -1,0 +1,27 @@
+extends base
+
+block nav
+  nav
+    ul
+      li
+        a(href="/") Home
+      li
+        a(href="/signup") Sign Up
+
+block content
+  form(method="POST")
+    h3 Log In to Your Account
+    input(placeholder="Email", type="email", name="email", required)
+    input(placeholder="Password", type="password", name="password", required)
+    div
+      h4(style="display:inline") Need an account?  
+      a(href="/signup") Sign Up
+    input(type="submit", value="Log In")
+    br
+    div
+      h3(style="margin:3px") Social Login
+      a(href="/users/github/start")
+        img(src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", style="width:34px;height:35px")
+      a(href="/users/kakao/start")
+        img(src="https://developers.kakao.com/tool/resource/static/img/button/kakaotalksharing/kakaotalk_sharing_btn_small.png")
+    include partials/error-message

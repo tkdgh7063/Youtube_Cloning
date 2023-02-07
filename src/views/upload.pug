@@ -9,7 +9,9 @@ block nav
 block content
   if errorMessage
     span=errorMessage
-  form(method="POST")
+  form(method="POST", enctype="multipart/form-data")
+    label(for="video") Video
+    input(type="file", id="video", name="video", required)
     input(placeholder="Title", required, type="text", name="title", maxlength="20")
     input(placeholder="Description", type="text", name="description", maxlength="140")
     input(placeholder="Hashtags, separated by comma.", type="text", name="hashtags")

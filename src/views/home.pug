@@ -5,9 +5,22 @@ block nav
   nav
     ul
       li
-        a(href="/videos/upload") Upload Video
-      li
         a(href="/search") Search Video
+      if loggedIn
+        li
+          a(href="/videos/upload") Upload Video
+        li
+          a(href=`/users/${loggedInUser._id}`) My Profile
+        li
+          a(href="/users/edit") Edit profile
+        span #{loggedInUser.username}
+        li
+          a(href="/users/logout") Log Out
+      else
+        li
+          a(href="/signup") Sign Up
+        li
+          a(href="/login") Log In
 
 block content
   each video in videos

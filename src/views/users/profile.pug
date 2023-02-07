@@ -1,0 +1,27 @@
+extends ../base
+include ../mixins/video
+
+block nav
+  nav
+    ul
+      li
+        a(href="/") Home
+
+block content
+  ul
+    li: img(src=user.avatarUrl)
+    br
+    li=user.name
+    br
+    li=user.username
+    br
+    li=user.location
+    br
+    li=user.email
+  a(href="/users/edit") Edit Profile
+  hr
+  h4 User's Videos
+  each video in user.videos
+    +video(video)
+  else
+    span No Videos.

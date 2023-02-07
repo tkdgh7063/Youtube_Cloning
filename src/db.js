@@ -1,7 +1,8 @@
+import "dotenv/config";
 import mongoose from "mongoose";
 
 mongoose.set("strictQuery", false);
-mongoose.connect("mongodb://127.0.0.1:27017/youtube-clone");
+mongoose.connect(process.env.DB_URL);
 
 const db = mongoose.connection;
 
