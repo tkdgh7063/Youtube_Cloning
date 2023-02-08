@@ -1,4 +1,5 @@
 import User from "../models/User";
+import bcrypt from "bcrypt";
 
 export const getJoin = (req, res) => {
   return res.render("signup", { pageTitle: "Sign Up" });
@@ -48,11 +49,31 @@ export const postJoin = async (req, res) => {
   }
 };
 
+export const getLogin = (req, res) => {
+  return res.render("login", { pageTitle: "Login" });
+};
+
+export const postLogin = async (req, res) => {
+  const { email, password } = req.body;
+  const pageTitle = "Login";
+  const user = await User.findOne({ email });
+  if (!user) {
+    return res
+      .status(400)
+      .render("login", { pageTitle, errorMessage: "Wrong Email" });
+  }
+  const match = await bcrypt.compare(password, user.password);
+  if (!match) {
+    return res
+      .status(400)
+      .render("login", { pageTitle, errorMessage: "Wrong Password" });
+  }
+  return res.redirect("/");
+};
+
 export const edit = (req, res) => res.send("User Edit");
 
 export const remove = (req, res) => res.send("User Delete");
-
-export const login = (req, res) => res.send("Login");
 
 export const logout = (req, res) => res.send("Log Out");
 
