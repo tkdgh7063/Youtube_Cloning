@@ -2,7 +2,6 @@ import express from "express";
 import {
   getJoin,
   postJoin,
-  login,
   getLogin,
   postLogin,
 } from "../controller/userController";
