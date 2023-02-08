@@ -68,6 +68,8 @@ export const postLogin = async (req, res) => {
       .status(400)
       .render("login", { pageTitle, errorMessage: "Wrong Password" });
   }
+  req.session.loggedIn = true;
+  req.session.user = user;
   return res.redirect("/");
 };
 
