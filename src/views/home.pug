@@ -8,8 +8,15 @@ block nav
         a(href="/videos/upload") Upload Video
       li
         a(href="/search") Search Video
-      li
-        a(href="/signup") Sign Up
+      if loggedIn
+        span #{loggedInUser}
+        li
+          a(href="/logout") Log Out
+      else
+        li
+          a(href="/signup") Sign Up
+        li
+          a(href="/login") Log In
 
 block content
   each video in videos
