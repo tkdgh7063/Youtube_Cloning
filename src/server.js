@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
@@ -16,12 +17,12 @@ app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
-    secret: "Hello!",
+    secret: process.env.COOKIE_SECRET,
     resave: false, // resave session even if the session was never modified during the request
     saveUninitialized: false, // save session only when session is modified(user logged in)
     cookie: { maxAge: 1000 * 60 * 60 * 24 * 3 },
     store: MongoStore.create({
-      mongoUrl: "mongodb://127.0.0.1:27017/youtube-clone",
+      mongoUrl: process.env.DB_URL,
     }),
   })
 );
