@@ -9,7 +9,7 @@ block nav
       li
         a(href="/search") Search Video
       if loggedIn
-        span #{loggedInUser}
+        span #{loggedInUser.username}
         li
           a(href="/logout") Log Out
       else
