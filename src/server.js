@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
+import MongoStore from "connect-mongo";
 import rootRouter from "./routes/globalRouter";
 import userRouter from "./routes/userRouter";
 import videoRouter from "./routes/videoRouter";
@@ -16,8 +17,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
     secret: "Hello!",
-    resave: true,
-    saveUninitialized: true,
+    resave: false, // resave session even if the session was never modified during the request
+    saveUninitialized: false, // save session only when session is modified(user logged in)
+    cookie: { maxAge: 1000 * 60 * 60 * 24 * 3 },
+    store: MongoStore.create({
+      mongoUrl: "mongodb://127.0.0.1:27017/youtube-clone",
+    }),
   })
 );
 app.use(localsMiddleware);
