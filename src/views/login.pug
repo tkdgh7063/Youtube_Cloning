@@ -17,8 +17,13 @@ block content
       h4(style="display:inline") Need an account?  
       a(href="/signup") Sign Up
     input(type="submit", value="Log In")
-    br
-    a(href="/users/github/start") Log in with Github &rarr;
+    hr(style="margin:.5em")
+    div
+      h3(style="margin:3px") Social Login
+      a(href="/users/github/start")
+        img(src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png", style="width:34px;height:35px")
+      a(href="/users/kakao/start")
+        img(src="https://developers.kakao.com/tool/resource/static/img/button/kakaotalksharing/kakaotalk_sharing_btn_small.png")
     br
     if errorMessage
       span=errorMessage
