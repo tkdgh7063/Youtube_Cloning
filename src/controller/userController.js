@@ -134,7 +134,7 @@ export const finishGithubLogin = async (req, res) => {
         email: emailObj.email,
         username: userData.login,
         password: "secret",
-        name: userData.name,
+        name: userData.name ? userData.name : userData.login,
         socialLogin: true,
         avatarUrl: userData.avatar_url,
         location: userData.location,
