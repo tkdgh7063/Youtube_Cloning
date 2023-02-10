@@ -21,6 +21,6 @@ block content
     input(type="submit", value="Sign Up")
     br
     if errorMessage
-      span=errorMessage
+      span(style="color:red")=errorMessage
     else
       span(style="color:red") If an error occurs when filling a form, a message will show here.

@@ -8,6 +8,8 @@ import {
   finishGithubLogin,
   startKakaoLogin,
   finishKakaoLogin,
+  startTwitterLogin,
+  finishTwitterLogin,
 } from "../controller/userController";
 
 const userRouter = express.Router();
@@ -20,5 +22,7 @@ userRouter.get("/github/start", startGithubLogin);
 userRouter.get("/github/finish", finishGithubLogin);
 userRouter.get("/kakao/start", startKakaoLogin);
 userRouter.get("/kakao/finish", finishKakaoLogin);
+userRouter.get("/twitter/start", startTwitterLogin);
+userRouter.get("/twitter/finish", finishTwitterLogin);
 
 export default userRouter;

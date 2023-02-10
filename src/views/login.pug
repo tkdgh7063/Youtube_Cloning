@@ -7,8 +7,6 @@ block nav
         a(href="/") Home
 
 block content
-  if errorMessage
-    span=errorMessage
   form(method="POST")
     h3 Log In to Your Account
     input(placeholder="Email", type="email", name="email", required)
@@ -26,6 +24,6 @@ block content
         img(src="https://developers.kakao.com/tool/resource/static/img/button/kakaotalksharing/kakaotalk_sharing_btn_small.png")
     br
     if errorMessage
-      span=errorMessage
+      span(style="color:red")=errorMessage
     else
       span(style="color:red") If an error occurs when filling a form, a message will show here.

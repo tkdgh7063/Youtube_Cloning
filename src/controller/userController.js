@@ -57,11 +57,17 @@ export const getLogin = (req, res) => {
 export const postLogin = async (req, res) => {
   const { email, password } = req.body;
   const pageTitle = "Login";
-  const user = await User.findOne({ email, socialLogin: false });
+  const user = await User.findOne({ email });
   if (!user) {
     return res
       .status(400)
       .render("login", { pageTitle, errorMessage: "Wrong Email" });
+  }
+  if (user.socialLogin) {
+    return res.status(400).render("login", {
+      pageTitle,
+      errorMessage: "Please Log in by social login",
+    });
   }
   const match = await bcrypt.compare(password, user.password);
   if (!match) {
@@ -87,6 +93,8 @@ export const startGithubLogin = (req, res) => {
 };
 
 export const finishGithubLogin = async (req, res) => {
+  // docs.github.com/ko/rest/users/emails?apiVersion=2022-11-28
+  // docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
   // docs.github.com/en/rest/reference for more api information
   // to do list: Follow a user function add
   const baseUrl = "https://github.com/login/oauth/access_token";
@@ -163,6 +171,7 @@ export const startKakaoLogin = (req, res) => {
 
 export const finishKakaoLogin = async (req, res) => {
   // developers.kakao.com/docs/latest/ko/kakaologin/rest-api#kakaoaccount
+  // developers.kakao.com/docs/latest/ko/kakaologin/trouble-shooting for error
   const baseUrl = "https://kauth.kakao.com/oauth/token";
   const config = {
     grant_type: "authorization_code",
@@ -218,6 +227,18 @@ export const finishKakaoLogin = async (req, res) => {
   } else {
     return res.redirect("/login");
   }
+};
+
+export const startTwitterLogin = (req, res) => {
+  // future feature: twitter social login
+  // developer.twitter.com/en/docs/apps/overview
+  return res.send("twitter login");
+};
+
+export const finishTwitterLogin = (req, res) => {
+  // future feature: twitter social login
+  // developer.twitter.com/en/docs/apps/overview
+  return res.send("twitter login");
 };
 
 export const logout = (req, res) => {
