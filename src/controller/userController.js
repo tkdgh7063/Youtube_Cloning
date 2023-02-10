@@ -128,9 +128,9 @@ export const finishGithubLogin = async (req, res) => {
     }
     let user = await User.findOne({ email: emailObj.email });
     if (!user) {
-      // create an account
+      // create an account with Github info
       // 비밀번호만 생성하도록 하고 깃허브 계정과 통합?
-      const user = await User.create({
+      user = await User.create({
         email: emailObj.email,
         username: userData.login,
         password: "secret",
@@ -138,6 +138,78 @@ export const finishGithubLogin = async (req, res) => {
         socialLogin: true,
         avatarUrl: userData.avatar_url,
         location: userData.location,
+      });
+    }
+    req.session.loggedIn = true;
+    req.session.user = user;
+    return res.redirect("/");
+  } else {
+    return res.redirect("/login");
+  }
+};
+
+export const startKakaoLogin = (req, res) => {
+  const baseUrl = "https://kauth.kakao.com/oauth/authorize";
+  const config = {
+    client_id: process.env.KT_CLIENT,
+    redirect_uri: "http://localhost:4000/users/kakao/finish",
+    response_type: "code",
+    scope: "profile_nickname,account_email",
+  };
+  const params = new URLSearchParams(config).toString();
+  const url = `${baseUrl}?${params}`;
+  return res.redirect(url);
+};
+
+export const finishKakaoLogin = async (req, res) => {
+  // developers.kakao.com/docs/latest/ko/kakaologin/rest-api#kakaoaccount
+  const baseUrl = "https://kauth.kakao.com/oauth/token";
+  const config = {
+    grant_type: "authorization_code",
+    client_id: process.env.KT_CLIENT,
+    redirect_uri: "http://localhost:4000/users/kakao/finish",
+    code: req.query.code,
+  };
+  const params = new URLSearchParams(config).toString();
+  const url = `${baseUrl}?${params}`;
+  const tokenRequest = await (
+    await fetch(url, {
+      method: "POST",
+      headers: {
+        Accept: "application/json;charset=UTF-8",
+      },
+    })
+  ).json();
+  if ("access_token" in tokenRequest) {
+    const { access_token } = tokenRequest;
+    const apiUrl = "https://kapi.kakao.com/v2/user/me";
+    const userData = await (
+      await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      })
+    ).json();
+    const email =
+      userData.kakao_account.is_email_valid &&
+      userData.kakao_account.is_email_verified
+        ? userData.kakao_account.email
+        : undefined;
+    if (!email) {
+      return res.redirect("/login");
+    }
+    let user = await User.findOne({ email });
+    if (!user) {
+      // create an account with KakaoTalk info
+      // 비밀번호만 생성하도록 하고 카카오톡과 통합?
+      // 카카오톡 정보를 가지고 회원가입으로 리다이렉트
+      user = await User.create({
+        email,
+        username: userData.kakao_account.profile["nickname"],
+        password: "secret",
+        name: userData.kakao_account.profile["nickname"],
+        socialLogin: true,
       });
     }
     req.session.loggedIn = true;
