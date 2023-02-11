@@ -1,0 +1,31 @@
+extends base
+
+block nav
+  nav
+    ul
+      li
+        a(href="/videos/upload") Upload Video
+      li
+        a(href="/search") Search Video
+      if loggedIn
+        span #{loggedInUser.username}
+        li
+          a(href="/users/logout") Log Out
+      else
+        li
+          a(href="/signup") Sign Up
+        li
+          a(href="/login") Log In
+
+block content
+  form(method="POST")
+    label(for="email") Email
+    input(placeholder="Email", type="email", value=loggedInUser.email, name="email", id="email")
+    label(for="name") Name
+    input(placeholder="Name", type="text", style="width:195px", maxlength="20", value=loggedInUser.name, name="name", id="name")
+    label(for="username") Username
+    input(placeholder="Username", type="text", style="width:195px", maxlength="16", value=loggedInUser.username, name="username", id="username")
+    label(for="location") Location
+    input(placeholder="Location", type="text", style="width:195px", value=loggedInUser.location, name="location", id="location")
+    input(type="submit", value="Update Profile")
+    include partials/error-message

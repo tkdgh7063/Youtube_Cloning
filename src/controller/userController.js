@@ -246,7 +246,55 @@ export const logout = (req, res) => {
   return res.redirect("/");
 };
 
-export const edit = (req, res) => res.send("User Edit");
+export const getEdit = (req, res) => {
+  return res.render("edit-profile", { pageTitle: "Edit Profile" });
+};
+
+export const postEdit = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { email, name, username, location },
+  } = req;
+  // const {id} = req.session.user;
+  // const {email, name, username, location} = req.body;
+
+  // 바꾸려는 이메일과 유저네임이 이미 존재하는지 체크
+  if (req.session.user.email !== email && (await User.exists({ email }))) {
+    return res.status(400).render("edit-profile", {
+      pageTitle: "Edit Profile",
+      errorMessage: "Existing Email",
+    });
+  }
+
+  if (
+    req.session.user.username !== username &&
+    (await User.exists({ username }))
+  ) {
+    return res.status(400).render("edit-profile", {
+      pageTitle: "Edit Profile",
+      errorMessage: "Existing Username",
+    });
+  }
+
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      email,
+      name,
+      username,
+      location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
+  res.locals.loggedInUser = req.session.user;
+  return res.render("edit-profile", {
+    pageTitle: "Edit Profile",
+    errorMessage: "Profile Edited",
+  });
+};
 
 export const remove = (req, res) => res.send("User Delete");
 
