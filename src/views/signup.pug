@@ -19,8 +19,4 @@ block content
       h4(style="display:inline") Already a member?  
       a(href="/login") Log In
     input(type="submit", value="Sign Up")
-    br
-    if errorMessage
-      span(style="color:red")=errorMessage
-    else
-      span(style="color:red") If an error occurs when filling a form, a message will show here.
+    include partials/error-message
