@@ -296,6 +296,45 @@ export const postEdit = async (req, res) => {
   });
 };
 
+export const getChangePassword = (req, res) => {
+  return res.render("users/change-password", { pageTitle: "Change Password" });
+};
+
+export const postChangePassword = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { curPassword, newPassword, repeatPassword },
+  } = req;
+  const user = await User.findById(_id);
+  if (!(await bcrypt.compare(curPassword, user.password))) {
+    // password incorrect
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "Current Password Incorrect",
+    });
+  }
+  if (curPassword === newPassword) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "New Password is same as Current Password",
+    });
+  }
+  if (newPassword !== repeatPassword) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "Repeat password correctly",
+    });
+  }
+
+  // update password
+  user.password = newPassword;
+  await user.save();
+  req.session.destroy();
+  return res.redirect("/users/logout");
+};
+
 export const remove = (req, res) => res.send("User Delete");
 
 export const see = (req, res) => res.send("See");

@@ -4,6 +4,8 @@ block nav
   nav
     ul
       li
+        a(href="/") Home
+      li
         a(href="/videos/upload") Upload Video
       li
         a(href="/search") Search Video
@@ -29,3 +31,5 @@ block content
     input(placeholder="Location", type="text", style="width:195px", value=loggedInUser.location, name="location", id="location")
     input(type="submit", value="Update Profile")
     include partials/error-message
+    hr(style="margin:.5em")
+    a(href="change-password") Change Password &rarr;

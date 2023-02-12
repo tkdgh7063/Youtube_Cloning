@@ -11,6 +11,8 @@ import {
   finishKakaoLogin,
   startTwitterLogin,
   finishTwitterLogin,
+  getChangePassword,
+  postChangePassword,
 } from "../controller/userController";
 import { protectorMiddleware, publicOnlyMiddleware } from "../middlewares";
 
@@ -18,6 +20,11 @@ const userRouter = express.Router();
 
 userRouter.get(":id", see);
 userRouter.route("/edit").all(protectorMiddleware).get(getEdit).post(postEdit);
+userRouter
+  .route("/change-password")
+  .all(protectorMiddleware)
+  .get(getChangePassword)
+  .post(postChangePassword);
 userRouter.get("/delete", remove);
 userRouter.get("/logout", protectorMiddleware, logout);
 userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
