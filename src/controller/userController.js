@@ -253,9 +253,10 @@ export const getEdit = (req, res) => {
 export const postEdit = async (req, res) => {
   const {
     session: {
-      user: { _id },
+      user: { _id, avatarUrl },
     },
     body: { email, name, username, location },
+    file,
   } = req;
   // const {id} = req.session.user;
   // const {email, name, username, location} = req.body;
@@ -278,9 +279,21 @@ export const postEdit = async (req, res) => {
     });
   }
 
+  let avartarPath = avatarUrl;
+  if (file) {
+    if (file.path.startsWith("uploads")) {
+      avartarPath = "/" + file.path;
+    } else {
+      avartarPath = file.path;
+    }
+  } else {
+    avartarPath = avatarUrl;
+  }
+
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
+      avatarUrl: avartarPath,
       email,
       name,
       username,
