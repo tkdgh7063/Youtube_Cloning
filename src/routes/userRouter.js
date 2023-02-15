@@ -22,7 +22,7 @@ import {
 
 const userRouter = express.Router();
 
-userRouter.get(":id", see);
+userRouter.get("/:id([0-9a-f]{24})", see);
 userRouter
   .route("/edit")
   .all(protectorMiddleware)
@@ -33,8 +33,8 @@ userRouter
   .all(protectorMiddleware)
   .get(getChangePassword)
   .post(postChangePassword);
-userRouter.get("/delete", remove);
 userRouter.get("/logout", protectorMiddleware, logout);
+userRouter.get("/delete", remove);
 userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
 userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
 userRouter.get("/kakao/start", publicOnlyMiddleware, startKakaoLogin);

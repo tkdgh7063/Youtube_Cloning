@@ -1,0 +1,21 @@
+extends ../base
+
+block nav
+  nav
+    ul
+      li
+        a(href="/") Home
+
+block content
+  nav
+    ul
+      li: img(src=user.avatarUrl)
+      br
+      li=user.name
+      br
+      li=user.username
+      br
+      li=user.location
+      br
+      li=user.email
+  a(href="/users/edit") Edit Profile
