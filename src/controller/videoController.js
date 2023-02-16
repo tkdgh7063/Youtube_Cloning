@@ -96,7 +96,7 @@ export const postUpload = async (req, res) => {
 export const deleteVideo = async (req, res) => {
   const {
     session: {
-      users: { _id },
+      user: { _id },
     },
     params: { id },
   } = req;
