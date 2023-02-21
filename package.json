@@ -7,8 +7,8 @@
     "url": "git+https://github.com/tkdgh7063/Youtube_Cloning.git"
   },
   "scripts": {
-    "dev": "nodemon --exec babel-node src/init.js",
-    "assets": "webpack --config webpack.config.js"
+    "dev:server": "nodemon",
+    "dev:assets": "webpack"
   },
   "author": "tkdgh7063",
   "license": "MIT",
