@@ -10,6 +10,12 @@ block content
   h2=video.title
   video(src="/" + `${video.videoUrl}` controls autoplay)
   div
+    button#play Play
+    button#mute Mute
+    span#time 00:00/00:00
+    input(type="range", min="0", max="1", step="0.1")#volume
+  // VIDEO
+  div
     p=video.description
     small=video.createdAt
     h4=video.hashtags
@@ -20,3 +26,6 @@ block content
     a(href=`${video.id}/edit`) Edit Video &rarr;
     br
     a(href=`${video.id}/delete`) Delete Video &rarr;
+
+block scripts
+  script(src="/assets/js/videoPlayer.js")
