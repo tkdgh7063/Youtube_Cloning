@@ -8,7 +8,21 @@ block nav
 
 block content
   h2=video.title
-  video(src="/" + `${video.videoUrl}` controls autoplay)
+  div#videoContainer(data-id=video._id)
+    video(src="/" + `${video.videoUrl}` autoplay)
+    div#videoControls
+      button#play Play
+      button#mute Mute
+      input(type="range", value=".5", min="0", max="1", step="0.1")#volume
+      div
+        span#currentTime 00:00
+        span / 
+        span#totalTime 00:00
+      div
+        input(type="range", value="0", step="1", min="0")#timeline
+      div
+        button#fullScreen Full Screen
+  // VIDEO
   div
     p=video.description
     small=video.createdAt
@@ -20,3 +34,22 @@ block content
     a(href=`${video.id}/edit`) Edit Video &rarr;
     br
     a(href=`${video.id}/delete`) Delete Video &rarr;
+  if loggedIn
+    div
+      form#commentForm
+        textarea(cols="30", rows="10", placeholder="Write a nice comment...")
+        button Add Comment
+  div.video__comments
+    ul
+      each comment in video.comments.reverse()
+        li.video__comment(data-id=comment._id)
+          // i.fas.fa-comment
+          span #{comment.text}
+          if loggedInUser._id == comment.owner._id
+            button(style="padding: 0;") ❌
+
+
+block scripts
+  script(src="/assets/js/videoPlayer.js")
+  if loggedIn
+    script(src="/assets/js/commentSection.js")
