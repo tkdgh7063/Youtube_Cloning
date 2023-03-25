@@ -1,3 +1,5 @@
+import fetch from "cross-fetch";
+
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const muteBtn = document.getElementById("mute");
@@ -59,6 +61,11 @@ const handleTimeUpdate = () => {
   timeline.value = Math.floor(video.currentTime);
 };
 
+const handleEnded = () => {
+  const { id } = videoContainer.dataset;
+  fetch(`/api/video/${id}/view`, { method: "POST" });
+};
+
 const handleTimelineChange = (event) => (video.currentTime = timeline.value);
 
 const handleFullScreen = () => {
@@ -104,10 +111,11 @@ muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadedmetadata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
+video.addEventListener("ended", handleEnded);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullScreen);
-video.addEventListener("mousemove", handleMouseMove);
-video.addEventListener("mouseleave", handleMouseLeave);
+videoContainer.addEventListener("mousemove", handleMouseMove);
+videoContainer.addEventListener("mouseleave", handleMouseLeave);
 
 video.readyState
   ? handleLoadedMetadata()
