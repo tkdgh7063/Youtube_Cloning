@@ -7,6 +7,9 @@ block nav
         a(href="/") Home
 
 block content
+  div
+    video#preview
+    button#startBtn Start Recording
   if errorMessage
     span=errorMessage
   form(method="POST", enctype="multipart/form-data")
@@ -16,3 +19,6 @@ block content
     input(placeholder="Description", type="text", name="description", maxlength="140")
     input(placeholder="Hashtags, separated by comma.", type="text", name="hashtags")
     input(type="submit", value="Upload Video")
+
+block scripts
+  script(src="/assets/js/recorder.js")
