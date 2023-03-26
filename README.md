@@ -33,6 +33,10 @@ Video-Database branch includes videoController functions using mongoose
 
 User-Database branch includes userController functions using mongoose
 
-## 23/02/22 - Webpack brach merged.
+## 23/02/22 - Webpack branch merged.
 
-Webpack brach includes webpack for transformation of front-end assets.
+Webpack branch includes webpack for transformation of front-end assets.
+
+## 23/03/26 - Video branch merged.
+
+Video branch includes video-related features such as video player, commenting on video, deleting comments, etc.
