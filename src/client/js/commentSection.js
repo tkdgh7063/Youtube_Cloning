@@ -3,6 +3,13 @@ const form = document.getElementById("commentForm");
 const comments = document.querySelectorAll(".video__comments li");
 const deleteBtn = document.querySelectorAll(".video__comments li button");
 
+// for future features
+// change comments number in real-time when adding or deleting comments
+// modifying comments
+// like on comments
+// cancel like
+// find videos with hashtag click
+
 const addComment = (text, id) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
@@ -17,6 +24,7 @@ const addComment = (text, id) => {
   const btn = document.createElement("button");
   btn.innerText = "❌";
   btn.style = "padding: 0;";
+  btn.addEventListener("click", handleDeleteComment);
   // newComment.appendChild(icon);
   newComment.appendChild(span);
   newComment.appendChild(btn);
