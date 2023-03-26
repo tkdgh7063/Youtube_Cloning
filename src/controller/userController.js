@@ -157,6 +157,7 @@ export const finishGithubLogin = async (req, res) => {
   }
 };
 
+// will change redirect_uri to herokuapp site
 export const startKakaoLogin = (req, res) => {
   const baseUrl = "https://kauth.kakao.com/oauth/authorize";
   const config = {
@@ -283,11 +284,14 @@ export const postEdit = async (req, res) => {
 
   let avartarPath = avatarUrl;
   if (file) {
-    if (file.path.startsWith("uploads")) {
-      avartarPath = "/" + file.path;
-    } else {
-      avartarPath = file.path;
-    }
+    avartarPath = file.location;
+    // if (file.path) {
+    //   if (file.path.startsWith("uploads")) {
+    //     avartarPath = "/" + file.path;
+    //   } else {
+    //     avartarPath = file.location;
+    //   }
+    // }
   } else {
     avartarPath = avatarUrl;
   }
