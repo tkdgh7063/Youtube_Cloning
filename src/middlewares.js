@@ -10,16 +10,25 @@ const s3 = new S3Client({
   },
 });
 
-const multerUploader = multerS3({
+const ImageUploader = multerS3({
   s3: s3,
-  bucket: "youtube-z68bd",
+  bucket: "youtube-z68bd/images",
   acl: "public-read",
 });
+
+const VideoUploader = multerS3({
+  s3: s3,
+  bucket: "youtube-z68bd/videos",
+  acl: "public-read",
+});
+
+const isHeroku = process.env.NODE_ENV === "production";
 
 export const localsMiddleware = (req, res, next) => {
   res.locals.siteName = "Youtube-Clone";
   res.locals.loggedIn = Boolean(req.session.loggedIn);
   res.locals.loggedInUser = req.session.user || {};
+  res.locals.isHeroku = isHeroku;
   next();
 };
 
@@ -44,11 +53,11 @@ export const publicOnlyMiddleware = (req, res, next) => {
 export const uploadAvatar = multer({
   dest: "uploads/avatars/",
   limits: { fileSize: "3145728" }, // 3MB limits
-  storage: multerUploader,
+  storage: isHeroku ? ImageUploader : undefined,
 });
 
 export const uploadVideo = multer({
   dest: "uploads/videos/",
   limits: { fileSize: "104857600" }, // 100MB limits
-  storage: multerUploader,
+  storage: isHeroku ? VideoUploader : undefined,
 });
