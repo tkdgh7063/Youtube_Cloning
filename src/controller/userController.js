@@ -162,7 +162,7 @@ export const startKakaoLogin = (req, res) => {
   const baseUrl = "https://kauth.kakao.com/oauth/authorize";
   const config = {
     client_id: process.env.KT_CLIENT,
-    redirect_uri: "http://localhost:4000/users/kakao/finish",
+    redirect_uri: "https://youtube-z68bd.herokuapp.com/users/kakao/finish",
     response_type: "code",
     scope: "profile_nickname,account_email",
   };
@@ -178,7 +178,7 @@ export const finishKakaoLogin = async (req, res) => {
   const config = {
     grant_type: "authorization_code",
     client_id: process.env.KT_CLIENT,
-    redirect_uri: "http://localhost:4000/users/kakao/finish",
+    redirect_uri: "https://youtube-z68bd.herokuapp.com/users/kakao/finish",
     code: req.query.code,
   };
   const params = new URLSearchParams(config).toString();
