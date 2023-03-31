@@ -15,7 +15,7 @@ const ImageUploader = multerS3({
   bucket: "youtube-z68bd",
   acl: "public-read",
   key: function (req, file, cb) {
-    cb(null, `images/`);
+    cb(null, `images/${Date.now()}_${file.originalname}`);
   },
 });
 
@@ -24,7 +24,7 @@ const VideoUploader = multerS3({
   bucket: "youtube-z68bd",
   acl: "public-read",
   key: function (req, file, cb) {
-    cb(null, `videos/`);
+    cb(null, `videos/${Date.now()}_${file.originalname}`);
   },
 });
 
