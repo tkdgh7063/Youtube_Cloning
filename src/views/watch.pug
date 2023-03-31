@@ -9,7 +9,7 @@ block nav
 block content
   h2=video.title
   div#videoContainer(data-id=video._id)
-    video(src=`${video.videoUrl}` autoplay)
+    video(src=`${video.videoUrl}` autoplay crossorigin)
     div#videoControls
       button#play Play
       button#mute Mute
