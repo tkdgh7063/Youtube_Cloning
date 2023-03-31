@@ -12,7 +12,7 @@ const s3 = new S3Client({
 
 const ImageUploader = multerS3({
   s3: s3,
-  bucket: "youtube-z68bd/",
+  bucket: "youtube-z68bd",
   acl: "public-read",
   key: function (req, file, cb) {
     cb(null, `images/`);
@@ -21,7 +21,7 @@ const ImageUploader = multerS3({
 
 const VideoUploader = multerS3({
   s3: s3,
-  bucket: "youtube-z68bd/",
+  bucket: "youtube-z68bd",
   acl: "public-read",
   key: function (req, file, cb) {
     cb(null, `videos/`);
