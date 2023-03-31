@@ -12,14 +12,20 @@ const s3 = new S3Client({
 
 const ImageUploader = multerS3({
   s3: s3,
-  bucket: "youtube-z68bd//images",
+  bucket: "youtube-z68bd/",
   acl: "public-read",
+  key: function (req, file, cb) {
+    cb(null, `images/`);
+  },
 });
 
 const VideoUploader = multerS3({
   s3: s3,
-  bucket: "youtube-z68bd//videos",
+  bucket: "youtube-z68bd/",
   acl: "public-read",
+  key: function (req, file, cb) {
+    cb(null, `videos/`);
+  },
 });
 
 const isHeroku = process.env.NODE_ENV === "production";
