@@ -284,7 +284,7 @@ export const postEdit = async (req, res) => {
   const isHeroku = process.env.NODE_ENV === "production";
   let avartarPath = avatarUrl;
   if (file) {
-    avartarPath = isHeroku ? file.location : file.path;
+    avartarPath = isHeroku ? file.location : "/" + file.path;
     // if (file.path) {
     //   if (file.path.startsWith("uploads")) {
     //     avartarPath = "/" + file.path;
